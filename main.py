@@ -29,9 +29,9 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 # https://blog.miguelgrinberg.com/post/how-to-deploy-a-react--flask-project
 
 @app.route('/_ah/warmup', methods=['GET'])
-def index():
-    coronamodel = load('coronamodel.joblib')
-    
+def warmup():
+    return 'warmed up'
+
 @app.route('/time')
 def get_current_time():
     return {'time': time.time()}
