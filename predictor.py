@@ -1,10 +1,5 @@
-import tensorflow as tf
-import keras
-from keras.models import load_model
-from keras.preprocessing import image
 import numpy as np
 import pandas as pd
-import numpy as np
 import Bio as bio
 import seaborn as sns
 from sklearn.cluster import KMeans
@@ -14,8 +9,12 @@ from joblib import dump, load
 #Takes either two strings or two lists of strings.
 
 
-def GenomeFormatter(genomes, colname="Sequence"):
-    dummygenes = pd.read_pickle("./dummy.pkl")
+def GenomeFormatter(genomes, colname="Sequence", dummy=0):
+    if (dummy == 0):
+        dummygenes = pd.read_pickle("./dummy.pkl")
+    else:
+        dummygenes = dummy
+
     index = genomes.index
     #Values replaced with dummies:
 
@@ -60,7 +59,7 @@ def FastaReader(fastafile):
 #Takes dataframe from CoronaClass and returns dataframe of cluster
 #TODO: Return 5 closest matches.
 #Takes a filepath containing fasta-formatted genomes and returns classifications for each:
-def CoronaSample():
+def CoronaSample(df):
     coronamodel = load('coronamodel.joblib')
     #Reading file from fasta format into dataframe
     df = FastaReader('test.txt')
